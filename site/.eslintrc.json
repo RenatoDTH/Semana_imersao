@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es6": true
     },
     "extends": [
         "eslint:recommended",
@@ -35,8 +35,9 @@
       "no-console": ["error", { "allow": ["tron"] }],
       "no-param-reassign": "off",
       "react-hooks/rules-of-hooks": "error",
-     "react-hooks/exhaustive-deps": "warn",
-      "react/jsx-props-no-spreading": "off"
+      "react-hooks/exhaustive-deps": "warn",
+      "react/jsx-props-no-spreading": "off",
+      "jsx-a11y/anchor-is-valid": "off"
     },
     "globals": {
       "React": "writable"
