@@ -1,8 +1,20 @@
 import Head from 'next/head';
 import { Container, Jumbotron } from 'reactstrap';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import Menu from '../components/Menu';
+import Rodape from '../components/Rodape';
 
-function Home() {
+library.add(fas);
+
+export async function getServerSideProps() {
+  const response = await fetch(`http://localhost:3333/home`);
+  const data = await response.json();
+  return { props: { data } };
+}
+
+function Home({ data }) {
   return (
     <>
       <Head>
@@ -32,11 +44,14 @@ function Home() {
         }`}
         </style>
         <Container className="text-center">
-          <h1 className="display-4">Título</h1>
-          <p className="lead">Subtítulo</p>
+          <h1 className="display-4">{data.home.topTitulo}</h1>
+          <p className="lead">{data.home.topSubtitulo}</p>
           <p>
-            <a href="#" className="btn btn-outline-warning btn-lg">
-              Texto
+            <a
+              href={data.home.topLink}
+              className="btn btn-outline-warning btn-lg"
+            >
+              {data.home.topTextoBtn}
             </a>
           </p>
         </Container>
@@ -52,29 +67,36 @@ function Home() {
         </style>
         <Container className="text-center">
           <div>
-            <h2 className="display-4">Título</h2>
-            <p className="lead pb-4">Subtítulo</p>
+            <h2 className="display-4">{data.home.serTitulo}</h2>
+            <p className="lead pb-4">{data.home.serSubtitulo}</p>
           </div>
           <div className="row">
             <div className="col-md-4">
-              <div className="rounded-circle circulo centralizar">A</div>
+              <div className="rounded-circle circulo centralizar">
+                <FontAwesomeIcon icon={data.home.serUmIcone} />
+              </div>
 
-              <h2 className="mt-4 mb-4">Serviço um</h2>
-              <p>Descrição</p>
+              <h2 className="mt-4 mb-4">{data.home.serUmTitulo}</h2>
+              <p>{data.home.serUmDesc}</p>
             </div>
             <div className="col-md-4">
-              <div className="rounded-circle circulo centralizar">B</div>
-              <h2 className="mt-4 mb-4">Serviço um</h2>
-              <p>Descrição</p>
+              <div className="rounded-circle circulo centralizar">
+                <FontAwesomeIcon icon={data.home.serDoisIcone} />
+              </div>
+              <h2 className="mt-4 mb-4">{data.home.serDoisTitulo}</h2>
+              <p>{data.home.serDoisDesc}</p>
             </div>
             <div className="col-md-4">
-              <div className="rounded-circle circulo centralizar">C</div>
-              <h2 className="mt-4 mb-4">Serviço um</h2>
-              <p>Descrição</p>
+              <div className="rounded-circle circulo centralizar">
+                <FontAwesomeIcon icon={data.home.serTresIcone} />
+              </div>
+              <h2 className="mt-4 mb-4">{data.home.serTresTitulo}</h2>
+              <p>{data.home.serTresDesc}</p>
             </div>
           </div>
         </Container>
       </Jumbotron>
+      <Rodape />
     </>
   );
 }
